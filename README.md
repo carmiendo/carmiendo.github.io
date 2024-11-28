@@ -2,4 +2,5 @@
 
 a website to tell me if my pony got wet
 
-https://didmyponygetwet.com
+to deploy locally: bundle exec jekyll serve
+to deploy publicly: just push
