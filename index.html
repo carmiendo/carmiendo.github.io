@@ -30,12 +30,12 @@
 
           // Check if it rained
           if (precipitation > 0) {
-            document.getElementById("did-it-rain").innerText = `Yes!`;
-            document.getElementById("did-it-rain").innerText =
+            document.getElementById("did-it-rain").textContent = `Yes!`;
+            document.getElementById("did-it-rain").textContent =
               `${precipitation} inches of rain!`;
           } else {
-            document.getElementById("did-it-rain").innerText = `Nope!`;
-            document.getElementById("did-it-rain").innerText = ``;
+            document.getElementById("did-it-rain").textContent = `Nope!`;
+            document.getElementById("did-it-rain").textContent = ``;
           }
         })
         .catch((error) => console.error("Error fetching data:", error));
