@@ -13,9 +13,15 @@
 
   <body class="bg-cyan-600">
     <div class="flex justify-center min-h-screen">
-      <div class="mt-10 text-center">
-        <p id="did-it-rain" class="text-9xl font-bold"></p>
-        <p id="how-much" class="text-5xl font-bold mt-2"></p>
+      <div class="m-10 text-center">
+        <div id="answer-group">
+          <p id="did-it-rain" class="text-9xl font-bold"></p>
+          <p id="how-much" class="text-5xl font-bold mt-2"></p>
+        </div>
+        <div id="error-group">
+          <p id="error" class="text-5xl italic mt-2"></p>
+          <p id="error-details" class="text-xl italic mt-2"></p>
+        </div>
       </div>
     </div>
 
@@ -25,6 +31,9 @@
       )
         .then((response) => response.json())
         .then((data) => {
+          document.getElementById("answer-group").style.display = "block";
+          document.getElementById("error-group").style.display = "none";
+
           // day 0 is the first day
           const precipitation = data.daily.precipitation_sum[0];
 
@@ -38,7 +47,16 @@
             document.getElementById("how-much").textContent = ``;
           }
         })
-        .catch((error) => console.error("Error fetching data:", error));
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+
+          document.getElementById("answer-group").style.display = "none";
+          document.getElementById("error-group").style.display = "block";
+
+          document.getElementById("error").textContent =
+            `I don't know! Something went wrong.`;
+          document.getElementById("error-details").textContent = `${error}`;
+        });
     </script>
   </body>
 </html>
