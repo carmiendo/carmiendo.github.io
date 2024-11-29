@@ -17,7 +17,12 @@
         <div id="answer-group">
           <p id="did-it-rain" class="text-9xl font-bold"></p>
           <p id="how-much" class="text-5xl font-bold mt-2"></p>
+          <div id="prediction-group" class="m-10">
+            <p id="rain-soon" class="text-7xl font-bold"></p>
+            <p id="how-much-upcoming" class="text-5xl font-bold mt-2"></p>
+          </div>
         </div>
+
         <div id="error-group">
           <p id="error" class="text-5xl italic mt-2"></p>
           <p id="error-details" class="text-xl italic mt-2"></p>
@@ -35,16 +40,36 @@
           document.getElementById("error-group").style.display = "none";
 
           // day 0 is the first day
-          const precipitation = data.daily.precipitation_sum[0];
+          const pastPrecipitation = data.daily.precipitation_sum[0];
+          const futurePrecipitation = data.daily.precipitation_sum[1];
 
           // Check if it rained
-          if (precipitation > 0) {
+          if (pastPrecipitation > 0) {
             document.getElementById("did-it-rain").textContent = `Yes!`;
             document.getElementById("how-much").textContent =
-              `${precipitation} inches of rain!`;
+              `${pastPrecipitation} inches of rain!`;
           } else {
             document.getElementById("did-it-rain").textContent = `Nope!`;
             document.getElementById("how-much").textContent = ``;
+          }
+
+          // Check if it's going to rain'
+          if (futurePrecipitation > 0) {
+            document.getElementById("prediction-group").style.display = "block";
+
+            if (pastPrecipitation > 0) {
+              document.getElementById("rain-soon").textContent =
+                `And more is coming:`;
+            } else {
+              document.getElementById("rain-soon").textContent =
+                `But she will soon:`;
+            }
+            document.getElementById("how-much-upcoming").textContent =
+              `${futurePrecipitation} inches of rain!`;
+          } else {
+            document.getElementById("rain-soon").textContent =
+              `And she will stay dry today too!`;
+            document.getElementById("how-much-upcoming").textContent = ``;
           }
         })
         .catch((error) => {
