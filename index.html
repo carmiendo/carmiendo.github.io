@@ -30,6 +30,13 @@
           <p id="error" class="text-5xl italic mt-2"></p>
           <p id="error-details" class="text-xl italic mt-2"></p>
         </div>
+
+        <button
+          class="bg-pink-700 text-black text-5xl font-semibold py-3 px-6 rounded-lg shadow-xl hover:bg-pink-600 focus:outline-none focus:ring-2 focus:pink-400"
+          onclick="openWeatherApp()"
+        >
+          Check Weather
+        </button>
       </div>
     </div>
 
@@ -85,6 +92,13 @@
             `I don't know! Something went wrong.`;
           document.getElementById("error-details").textContent = `${error}`;
         });
+
+      function openWeatherApp() {
+        window.open(
+          `https://www.wunderground.com/weather/us/ca/half-moon-bay`,
+          "_self",
+        );
+      }
     </script>
   </body>
 </html>
