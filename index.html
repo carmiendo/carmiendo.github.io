@@ -67,34 +67,15 @@
             data.daily.precipitation_sum[pastDays - 1];
           const todaysPrecipitation = data.daily.precipitation_sum[pastDays];
 
-          // Check if it rained
-          if (yesterdaysPrecipitation > 0) {
-            document.getElementById("did-it-rain").textContent = `Yes!`;
-            document.getElementById("how-much").textContent =
-              `${yesterdaysPrecipitation} inches of rain!`;
-          } else {
-            document.getElementById("did-it-rain").textContent = `Nope!`;
-            document.getElementById("how-much").textContent = ``;
-          }
+          let strings = generateIsPonyWetStrings(
+            todaysPrecipitation,
+            yesterdaysPrecipitation,
+          );
 
-          // Check if it's going to rain
-          if (todaysPrecipitation > 0) {
-            document.getElementById("prediction-group").style.display = "block";
-
-            if (yesterdaysPrecipitation > 0) {
-              document.getElementById("rain-soon").textContent =
-                `And more is coming:`;
-            } else {
-              document.getElementById("rain-soon").textContent =
-                `But she will soon:`;
-            }
-            document.getElementById("how-much-upcoming").textContent =
-              `${todaysPrecipitation} inches of rain!`;
-          } else {
-            document.getElementById("rain-soon").textContent =
-              `And she will stay dry today too!`;
-            document.getElementById("how-much-upcoming").textContent = ``;
-          }
+          document.getElementById("did-it-rain").textContent = strings[0];
+          document.getElementById("how-much").textContent = strings[1];
+          document.getElementById("rain-soon").textContent = strings[2];
+          document.getElementById("how-much-upcoming").textContent = strings[3];
 
           // Fill in the future and past
 
@@ -171,6 +152,7 @@
         if (lastRainDate == null) {
           return `the last rain was over ${pastDays} days ago!`;
         }
+
         const date = new Date(lastRainDate);
         const dayNumber = date.getDate();
         const daySuffix = getDayWithSuffix(dayNumber);
@@ -195,11 +177,45 @@
 
         const nextRainDay = getDayFromDate(nextRainDate);
 
-        // How many days in the future is the last rain day?
+        // How many days in the future is the next rain day?
         const today = new Date();
         const daysAhead = Math.floor((date - today) / (1000 * 3600 * 24));
 
         return `the next rain will be in ${daysAhead} days, on ${nextRainDay} the ${daySuffix}`;
+      }
+
+      function generateIsPonyWetStrings(
+        todaysPrecipitation,
+        yesterdaysPrecipitation,
+      ) {
+        // Return a 4-string array with the following strings:
+        // Did it rain? yes/no
+        // How much did it rain?
+        // Will it rain today?
+        // How much rain is coming up?
+        let strings = new Array(4).fill("");
+
+        if (yesterdaysPrecipitation > 0) {
+          strings[0] = "Yep!";
+          strings[1] = `${yesterdaysPrecipitation} inches of rain!`;
+
+          if (todaysPrecipitation) {
+            strings[2] = `And she will keep getting wet: `;
+            strings[3] = `${todaysPrecipitation} more inches today!`;
+          } else {
+            strings[2] = `But she will dry out today!`;
+          }
+        } else {
+          strings[0] = "Nope!";
+
+          if (todaysPrecipitation) {
+            strings[2] = `But she will soon: `;
+            strings[3] = `${todaysPrecipitation} inches of rain will fall on her today!`;
+          } else {
+            strings[2] = `And she will stay dry today too!`;
+          }
+        }
+        return strings;
       }
     </script>
   </body>
