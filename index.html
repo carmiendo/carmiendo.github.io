@@ -94,17 +94,10 @@
         });
 
       function openWeatherApp() {
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-          window.open(
-            `https://weather.apple.com/?lat=37.477871&long-122.420851`,
-            "_self",
-          );
-        } else {
-          window.open(
-            `https://www.wunderground.com/weather/us/ca/half-moon-bay`,
-            "_self",
-          );
-        }
+        window.open(
+          `https://www.wunderground.com/weather/us/ca/half-moon-bay`,
+          "_self",
+        );
       }
     </script>
   </body>
