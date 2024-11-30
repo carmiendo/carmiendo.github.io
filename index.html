@@ -51,7 +51,7 @@
 
     <script>
       const pastDays = 7;
-      const futureDays = 7;
+      const futureDays = 16;
 
       fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=37.477871&longitude=-122.420851&daily=precipitation_sum,precipitation_hours,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FLos_Angeles&past_days=${pastDays}&forecast_days=${futureDays}`,
