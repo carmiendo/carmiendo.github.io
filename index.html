@@ -41,6 +41,8 @@
         </div>
 
         <button
+          id="button"
+          style="display: none"
           class="m-10 bg-pink-700 text-black text-5xl font-semibold py-3 px-6 rounded-lg shadow-xl hover:bg-pink-600 focus:outline-none focus:ring-2 focus:pink-400"
           onclick="openWeatherApp()"
         >
@@ -60,6 +62,7 @@
         .then((data) => {
           console.log(data);
           document.getElementById("answer-group").style.display = "block";
+          document.getElementById("button").style.display = "inline";
           document.getElementById("error-group").style.display = "none";
 
           // Calculate yesterday & today based on the passed in date range
@@ -106,6 +109,7 @@
 
           document.getElementById("answer-group").style.display = "none";
           document.getElementById("error-group").style.display = "block";
+          document.getElementById("button").style.display = "inline";
 
           document.getElementById("error").textContent =
             `I don't know! Something went wrong.`;
