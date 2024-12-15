@@ -92,7 +92,7 @@
 
           // Find next rain:
           let nextRain = null;
-          for (let i = pastDays - 1; i < pastDays + futureDays; i++) {
+          for (let i = pastDays + 1; i < pastDays + futureDays; i++) {
             if (data.daily.precipitation_sum[i] > 0) {
               nextRain = data.daily.time[i];
               break;
@@ -119,7 +119,7 @@
         );
       }
 
-      function getDayFromDate(dateString) {
+      function getDayFromDate(date) {
         const daysOfWeek = [
           "Sunday",
           "Monday",
@@ -130,7 +130,6 @@
           "Saturday",
         ];
 
-        const date = new Date(dateString);
         const dayOfWeek = date.getDay();
         return daysOfWeek[dayOfWeek];
       }
@@ -153,14 +152,15 @@
           return `the last rain was over ${pastDays} days ago!`;
         }
 
-        const date = new Date(lastRainDate);
+        const date = new Date(`${lastRainDate}T00:00:00-08:00`);
         const dayNumber = date.getDate();
         const daySuffix = getDayWithSuffix(dayNumber);
 
-        const lastRainDay = getDayFromDate(lastRainDate);
+        const lastRainDay = getDayFromDate(date);
 
         // How many days ago was the last rain day?
         const today = new Date();
+        today.setHours(0, 0, 0, 0);
         const daysAgo = Math.floor((today - date) / (1000 * 3600 * 24));
 
         return `the last time it rained was ${daysAgo} days ago, on ${lastRainDay} the ${daySuffix}`;
@@ -171,14 +171,15 @@
           return `next rain is over ${futureDays} days away!`;
         }
 
-        const date = new Date(nextRainDate);
+        const date = new Date(`${nextRainDate}T00:00:00-08:00`);
         const dayNumber = date.getDate();
         const daySuffix = getDayWithSuffix(dayNumber);
 
-        const nextRainDay = getDayFromDate(nextRainDate);
+        const nextRainDay = getDayFromDate(date);
 
         // How many days in the future is the next rain day?
         const today = new Date();
+        today.setHours(0, 0, 0, 0);
         const daysAhead = Math.floor((date - today) / (1000 * 3600 * 24));
 
         return `the next rain will be in ${daysAhead} days, on ${nextRainDay} the ${daySuffix}`;
