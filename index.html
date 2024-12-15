@@ -163,7 +163,9 @@
         today.setHours(0, 0, 0, 0);
         const daysAgo = Math.floor((today - date) / (1000 * 3600 * 24));
 
-        return `the last time it rained was ${daysAgo} days ago, on ${lastRainDay} the ${daySuffix}`;
+        const daysOrDay = daysAgo == 1 ? `day` : `days`;
+
+        return `the last time it rained was ${daysAgo} ${daysOrDay} ago, on ${lastRainDay} the ${daySuffix}`;
       }
 
       function generateNextRainString(nextRainDate) {
@@ -182,7 +184,9 @@
         today.setHours(0, 0, 0, 0);
         const daysAhead = Math.floor((date - today) / (1000 * 3600 * 24));
 
-        return `the next rain will be in ${daysAhead} days, on ${nextRainDay} the ${daySuffix}`;
+        const daysOrDay = daysAhead == 1 ? `day` : `days`;
+
+        return `the next rain will be in ${daysAhead} ${daysOrDay}, on ${nextRainDay} the ${daySuffix}`;
       }
 
       function generateIsPonyWetStrings(
